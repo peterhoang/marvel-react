@@ -18,7 +18,7 @@
 import {
   LOAD_CHARACTERS,
   LOAD_CHARACTERS_SUCCESS,
-  LOAD_CHARACTERS_ERROR,
+  LOAD_CHARACTERS_FAIL,
 } from './constants';
 
 /**
@@ -55,7 +55,7 @@ export function charactersLoaded(characters) {
  */
 export function charactersLoadingError(error) {
   return {
-    type: LOAD_REPOS_ERROR,
+    type: LOAD_CHARACTERS_FAIL,
     error,
   };
 }

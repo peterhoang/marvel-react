@@ -10,13 +10,18 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
 import messages from './messages';
 import { loadCharacters } from '../App/actions'
+import injectSaga from 'utils/injectSaga';
+import saga from './saga';
 
-export default class HomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+export class HomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   componentDidMount() {
-    dispatch(loadCharacters());
+    this.props.onLoadCharacters();
   }
   
   render() {
@@ -27,3 +32,26 @@ export default class HomePage extends React.PureComponent { // eslint-disable-li
     );
   }
 }
+
+HomePage.propTypes = {
+  loading: PropTypes.bool,
+  error: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.bool,
+  ]),
+  onLoadCharacters: PropTypes.func,
+};
+
+export function mapDispatchToProps(dispatch) {
+  return {
+    onLoadCharacters: (evt) => dispatch(loadCharacters()),
+  };
+}
+
+const withConnect = connect(null, mapDispatchToProps);
+const withSaga = injectSaga({ key: 'home', saga });
+
+export default compose(
+  withSaga,
+  withConnect,
+)(HomePage);
