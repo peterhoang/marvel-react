@@ -3,16 +3,13 @@
  */
 
 import { call, put, select, takeLatest } from 'redux-saga/effects';
-import { LOAD_CHARACTERS } from 'containers/App/constants';
+import { LOAD_CHARACTERS, API_KEY, MARVEL_HOST } from 'containers/App/constants';
 import { charactersLoaded, charactersLoadingError } from 'containers/App/actions';
 
 import request from 'utils/request';
 
-/**
- * Github repos request/response handler
- */
 export function* getCharacters() {
-  const requestURL = `https://gateway.marvel.com:443/v1/public/characters?limit=1&apikey=0f686698f337fe4e6b54c4fa1f5b7430`;
+  const requestURL = `${MARVEL_HOST}/v1/public/characters?limit=1&apikey=${API_KEY}`;
 
   try {
     // Call our request helper (see 'utils/request')

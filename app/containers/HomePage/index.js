@@ -15,7 +15,8 @@ import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import messages from './messages';
-import { loadCharacters } from '../App/actions'
+import { loadCharacters } from '../App/actions';
+import { loadComics } from './actions';
 import injectSaga from 'utils/injectSaga';
 import saga from './saga';
 
@@ -48,7 +49,14 @@ export function mapDispatchToProps(dispatch) {
   };
 }
 
-const withConnect = connect(null, mapDispatchToProps);
+function mapStateToProps(state) {
+  console.log(state);
+  return {
+    data: {}
+  }
+}
+
+const withConnect = connect(mapStateToProps, mapDispatchToProps);
 const withSaga = injectSaga({ key: 'home', saga });
 
 export default compose(
