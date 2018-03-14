@@ -142,7 +142,14 @@
       "newline-per-chained-call": 0,
       "no-confusing-arrow": 0,
       "no-console": 1,
+      "no-unused-vars": "warn",
       "no-use-before-define": 0,
+      "no-trailing-spaces": [
+        "error",
+        {
+          "skipBlankLines": true
+        }
+      ],
       "prefer-template": 2,
       "react/forbid-prop-types": 0,
       "react/jsx-first-prop-new-line": [

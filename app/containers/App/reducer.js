@@ -9,6 +9,7 @@
  * case YOUR_ACTION_CONSTANT:
  *   return state.set('yourStateVariable', true);
  */
+import { fromJS } from 'immutable';
 
 import {
   LOAD_CHARACTERS_SUCCESS,
@@ -16,10 +17,8 @@ import {
   LOAD_CHARACTERS_FAIL,
   LOAD_COMICS,
   LOAD_COMICS_SUCCESS,
-  LOAD_COMICS_FAIL
+  LOAD_COMICS_FAIL,
 } from './constants';
-
-import { fromJS } from 'immutable';
 
 // The initial state of the App
 const initialState = fromJS({
@@ -36,7 +35,7 @@ function characterData(state = {}, action) {
     case LOAD_CHARACTERS_SUCCESS:
       return state
         .setIn(['userData', 'characters'], action.characters.data.results)
-        .set('loading', false);   
+        .set('loading', false);
     default:
       return state;
   }
@@ -47,7 +46,7 @@ function comicData(state = {}, action) {
     case LOAD_COMICS_SUCCESS:
       return state
         .setIn(['userData', 'comics'], action.comics.data.results)
-        .set('loading', false);        
+        .set('loading', false);
     default:
       return state;
   }
@@ -61,11 +60,11 @@ function appReducer(state = initialState, action) {
         .set('loading', true)
         .set('error', false)
         .setIn(['userData', 'characters'], false)
-        .setIn(['userData', 'comics'], false)
+        .setIn(['userData', 'comics'], false);
     case LOAD_CHARACTERS_SUCCESS:
       return characterData(state, action);
     case LOAD_COMICS_SUCCESS:
-      return comicData(state, action);    
+      return comicData(state, action);
     case LOAD_COMICS_FAIL:
     case LOAD_CHARACTERS_FAIL:
       return state

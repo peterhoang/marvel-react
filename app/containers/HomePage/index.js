@@ -14,10 +14,11 @@ import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
+import injectSaga from 'utils/injectSaga';
+
 import messages from './messages';
 import { loadCharacters } from '../App/actions';
 import { loadComics } from './actions';
-import injectSaga from 'utils/injectSaga';
 import saga from './saga';
 
 export class HomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
@@ -35,25 +36,26 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
 }
 
 HomePage.propTypes = {
+  /*
   loading: PropTypes.bool,
   error: PropTypes.oneOfType([
     PropTypes.object,
     PropTypes.bool,
-  ]),
+  ]),*/
   onLoadCharacters: PropTypes.func,
 };
 
 export function mapDispatchToProps(dispatch) {
   return {
-    onLoadCharacters: (evt) => dispatch(loadCharacters()),
+    onLoadCharacters: () => dispatch(loadCharacters()),
   };
 }
 
 function mapStateToProps(state) {
   console.log(state);
   return {
-    data: {}
-  }
+    data: {},
+  };
 }
 
 const withConnect = connect(mapStateToProps, mapDispatchToProps);
